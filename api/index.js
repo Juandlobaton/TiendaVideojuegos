@@ -136,9 +136,10 @@ app.get('/videoJuegoFiltro/:anio', function (req, res) {
         };
     } else {
         if (videoJuegos !== []){
-            videoJuego = videoJuegos.find(videoJuegox => videoJuegox.anioLanzamiento < req.params.anio);
 
-            if(videoJuego !== undefined) {
+            videoJuegoTemp = videoJuegos.filter(videoJuegox => videoJuegox.anioLanzamiento <  req.params.anio);
+
+            if(videoJuegoTemp === undefined) {
                 respuesta = {
                     error: true,
                     codigo: 501,
@@ -149,7 +150,7 @@ app.get('/videoJuegoFiltro/:anio', function (req, res) {
                     error: false,
                     codigo: 200,
                     mensaje: 'videoJuego',
-                    respuesta: videoJuego
+                    respuesta: videoJuegoTemp
                 };
             }
         }else{
