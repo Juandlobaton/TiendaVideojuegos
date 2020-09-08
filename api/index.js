@@ -31,7 +31,7 @@ app.get('/', function(req, res) {
     res.send(respuesta);
 });
 
-app.get('/videoJuego', function (req, res) {
+app.get('/videoJuegos', function (req, res) {
     respuesta = {
         error: false,
         codigo: 200,
@@ -54,6 +54,113 @@ app.get('/videoJuego', function (req, res) {
     res.send(respuesta);
 });
 
+app.get('/videoJuego/:id', function (req, res) {
+    console.log(req.query[id]);
+    if(!req.params.id) {
+        respuesta = {
+            error: true,
+            codigo: 502,
+            mensaje: 'El campo id es requerido'
+        };
+    } else {
+        if (videoJuegos !== []){
+            videoJuego = videoJuegos.find(videoJuegox => videoJuegox.id === req.params.id);
+            if(videoJuego !== undefined) {
+                respuesta = {
+                    error: true,
+                    codigo: 501,
+                    mensaje: "Video Juego No encontrado"
+                };
+            } else {
+                respuesta = {
+                    error: false,
+                    codigo: 200,
+                    mensaje: 'videoJuego',
+                    respuesta: videoJuego
+                };
+            }
+        }else{
+            respuesta = {
+                error: true,
+                codigo: 501,
+                mensaje: "Video Juego No encontrado"
+            };
+        }
+    }
+    res.send(respuesta);
+});
+
+app.post('/videoJuego/:titulo', function (req, res) {
+    if(!req.params.titulo) {
+        respuesta = {
+            error: true,
+            codigo: 502,
+            mensaje: 'El campo titulo es requerido'
+        };
+    } else {
+        if (videoJuegos !== []){
+            videoJuego = videoJuegos.find(videoJuegox => videoJuegox.titulo === req.params.titulo);
+            if(videoJuego !== undefined) {
+                respuesta = {
+                    error: true,
+                    codigo: 501,
+                    mensaje: "Video Juego No encontrado"
+                };
+            } else {
+                respuesta = {
+                    error: false,
+                    codigo: 200,
+                    mensaje: 'videoJuego',
+                    respuesta: videoJuego
+                };
+            }
+        }else{
+            respuesta = {
+                error: true,
+                codigo: 501,
+                mensaje: "Video Juego No encontrado"
+            };
+        }
+
+    }
+    res.send(respuesta);
+});
+
+app.post('/videoJuego/:anio', function (req, res) {
+    if(!req.params.anio) {
+        respuesta = {
+            error: true,
+            codigo: 502,
+            mensaje: 'El campo id es requerido'
+        };
+    } else {
+        if (videoJuegos !== []){
+            videoJuego = videoJuegos.find(videoJuegox => videoJuegox.anioLanzamiento < req.params.anio);
+            if(videoJuego !== undefined) {
+                respuesta = {
+                    error: true,
+                    codigo: 501,
+                    mensaje: "Video Juego No encontrado"
+                };
+            } else {
+                respuesta = {
+                    error: false,
+                    codigo: 200,
+                    mensaje: 'videoJuego',
+                    respuesta: videoJuego
+                };
+            }
+        }else{
+            respuesta = {
+                error: true,
+                codigo: 501,
+                mensaje: "Video Juego No encontrado"
+            };
+        }
+    }
+    res.send(respuesta);
+});
+
 app.post('/videoJuego', function (req, res) {
     if(!req.body.titulo || !req.body.estudio || !req.body.anioLanzamiento || !req.body.descripcion || !req.body.edadMinima) {
         respuesta = {
@@ -71,8 +178,6 @@ app.post('/videoJuego', function (req, res) {
             };
         } else {
             autoincrement +=1;
-
-            console.log(autoincrement);
             videoJuego = {
                 id:autoincrement,
                 titulo:req.body.titulo,
@@ -93,7 +198,6 @@ app.post('/videoJuego', function (req, res) {
     }
     res.send(respuesta);
 });
-
 
 app.put('/videoJuego', function (req, res) {
 
