@@ -31,7 +31,7 @@ app.get('/', function(req, res) {
     res.send(respuesta);
 });
 
-app.get('/videoJuegos', function (req, res) {
+app.get('/videoJuego', function (req, res) {
     respuesta = {
         error: false,
         codigo: 200,
@@ -54,8 +54,7 @@ app.get('/videoJuegos', function (req, res) {
     res.send(respuesta);
 });
 
-app.get('/videoJuego/:id', function (req, res) {
-    console.log(req.query[id]);
+app.get('/videoJuegoId/:id', function (req, res) {
     if(!req.params.id) {
         respuesta = {
             error: true,
@@ -64,8 +63,10 @@ app.get('/videoJuego/:id', function (req, res) {
         };
     } else {
         if (videoJuegos !== []){
-            videoJuego = videoJuegos.find(videoJuegox => videoJuegox.id === req.params.id);
-            if(videoJuego !== undefined) {
+            videoJuego = videoJuegos.find(videoJuegox => videoJuegox.id == req.params.id);
+            console.log(videoJuego);
+            console.log(req.params.id);
+            if(videoJuego === undefined) {
                 respuesta = {
                     error: true,
                     codigo: 501,
@@ -90,7 +91,7 @@ app.get('/videoJuego/:id', function (req, res) {
     res.send(respuesta);
 });
 
-app.post('/videoJuego/:titulo', function (req, res) {
+app.get('/videoJuegoTitulo/:titulo', function (req, res) {
     if(!req.params.titulo) {
         respuesta = {
             error: true,
@@ -99,8 +100,8 @@ app.post('/videoJuego/:titulo', function (req, res) {
         };
     } else {
         if (videoJuegos !== []){
-            videoJuego = videoJuegos.find(videoJuegox => videoJuegox.titulo === req.params.titulo);
-            if(videoJuego !== undefined) {
+            videoJuego = videoJuegos.find(videoJuegox => videoJuegox.titulo == req.params.titulo);
+            if(videoJuego === undefined) {
                 respuesta = {
                     error: true,
                     codigo: 501,
@@ -126,7 +127,7 @@ app.post('/videoJuego/:titulo', function (req, res) {
     res.send(respuesta);
 });
 
-app.post('/videoJuego/:anio', function (req, res) {
+app.get('/videoJuegoFiltro/:anio', function (req, res) {
     if(!req.params.anio) {
         respuesta = {
             error: true,
@@ -136,6 +137,7 @@ app.post('/videoJuego/:anio', function (req, res) {
     } else {
         if (videoJuegos !== []){
             videoJuego = videoJuegos.find(videoJuegox => videoJuegox.anioLanzamiento < req.params.anio);
+
             if(videoJuego !== undefined) {
                 respuesta = {
                     error: true,
