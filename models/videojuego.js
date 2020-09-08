@@ -1,8 +1,9 @@
 const videojuego = {
-    nombre: "",
-    Genero: "",
-    Año: "",
-    Plataforma: ""
+    Titulo: "",
+    Estudio: "",
+    'Año de lanzamiento': "",
+    Descripcion : "",
+    'Edad Minima de juego': "" 
 }
 
-module.exports.user = user; 
+module.exports.videojuego = videojuego; 
